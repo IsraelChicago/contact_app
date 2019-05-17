@@ -1,7 +1,11 @@
 class Api::ContactsController < ApplicationController
 
   def index
-    @contacts = Contact.all
+    @contacts = Contact.all.order
+
+    if params[:first_name]
+      @contacts = @contacts.find_by(first_name: params[:first_name])
+    end
     render 'index.json.jbuilder'
   end
 
